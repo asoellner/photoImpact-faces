@@ -6,7 +6,7 @@
 
     <!-- Welcome page -->
     <welcome-file-list>
-        <welcome-file>index.xhtml</welcome-file>
+        <welcome-file>login.xhtml</welcome-file>
     </welcome-file-list>
 
 
@@ -35,8 +35,5 @@
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
 
-    <persistence-context-ref>
-        <persistence-context-ref-name>persistence/em</persistence-context-ref-name>
-        <persistence-unit-name>photosMySQL</persistence-unit-name>
-    </persistence-context-ref>
+
 </web-app>
