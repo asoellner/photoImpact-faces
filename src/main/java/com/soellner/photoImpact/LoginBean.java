@@ -42,13 +42,13 @@ public class LoginBean implements Serializable {
 
     public String loginProject() {
 
-        boolean noLogin=true;
+        boolean noLogin = true;
 
         if (!_uname.equals("") && !_password.equals("")) {
             EntityManagerFactory factory = Persistence.createEntityManagerFactory("photosMySQL");
             EntityManager manager = factory.createEntityManager();
-            int numberOfUsers = manager.createQuery("Select a From User a where User.login="+_uname, User.class).getResultList().size();
-            if(numberOfUsers>0) {
+            int numberOfUsers = manager.createQuery("Select a From User a where a.login LIKE ?1", User.class).setParameter(1, "asoel").getResultList().size();
+            if (numberOfUsers > 0) {
                 return "home";
             }
 
