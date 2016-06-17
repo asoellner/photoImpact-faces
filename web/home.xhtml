@@ -49,7 +49,7 @@ http://www.break.com
                 </p:column>
 
                 <p:column headerText="Details" style="vertical-align: top">
-                    <h:outputText value="#{photo.id}" title="Name"/>
+                    <p:gmap center="#{photo.gpsLongitude}, 2.122893" zoom="15" type="HYBRID" style="width:100%;height:400px" />
                 </p:column>
 
             </p:dataTable>
