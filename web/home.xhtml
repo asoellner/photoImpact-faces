@@ -34,9 +34,28 @@ http://www.break.com
     </h:form>
 
 
+    <h:form id="productListForm" prependId="false">
 
-            <p:graphicImage value="#{photoBean.image}"/>
+        <p:outputPanel id="testContainer">
 
+            <p:dataTable id="photos" var="photo" value="#{photoBean.images}"
+                         editable="false" widgetVar="documentTable">
+
+                <p:column headerText="Photo"  style="text-align: center">
+                    <p:graphicImage value="#{photoBean.photo}">
+                        <f:param name="pid" value="#{photo.id}"/>
+                    </p:graphicImage>
+
+                </p:column>
+
+                <p:column headerText="Details" style="vertical-align: top">
+                    <h:outputText value="#{photo.id}" title="Name"/>
+                </p:column>
+
+            </p:dataTable>
+        </p:outputPanel>
+
+    </h:form>
 
 
 </h:body>

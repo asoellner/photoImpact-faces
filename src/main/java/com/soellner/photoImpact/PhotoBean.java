@@ -1,7 +1,6 @@
 package com.soellner.photoImpact;
 
 import com.soellner.photoImpact.data.Photo;
-import com.soellner.photoImpact.data.User;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -14,6 +13,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -23,19 +24,44 @@ import java.util.List;
 @SessionScoped
 public class PhotoBean {
 
-    public StreamedContent getImage() throws IOException {
+
+    public StreamedContent getPhoto() throws IOException, SQLException {
+
         FacesContext context = FacesContext.getCurrentInstance();
+
+        if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
+            return new DefaultStreamedContent();
+        } else {
+
+            String id = context.getExternalContext().getRequestParameterMap().get("pid");
+
+            EntityManagerFactory factory = Persistence.createEntityManagerFactory("photosMySQL");
+            EntityManager manager = factory.createEntityManager();
+            List<Photo> photos = manager.createQuery("SELECT a FROM Photo a where a.id=?1", Photo.class).setParameter(1, id).getResultList();
+            if (!photos.isEmpty()) {
+                return new DefaultStreamedContent(new ByteArrayInputStream(photos.get(0).getImage()));
+
+            }
+
+            return null;
+            //return new DefaultStreamedContent(new ByteArrayInputStream(image));
+
+        }
+    }
+
+
+    public List<Photo> getImages() throws IOException {
 
         // So, browser is requesting the image. Return a real StreamedContent with the image bytes.
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("photosMySQL");
         EntityManager manager = factory.createEntityManager();
-        List<Photo> photos = manager.createQuery("SELECT a FROM Photo a", Photo.class).getResultList();
+        List<Photo> photos = manager.createQuery("SELECT a FROM Photo a order by a.id DESC", Photo.class).getResultList();
         if (!photos.isEmpty()) {
-            return new DefaultStreamedContent(new ByteArrayInputStream(photos.get(0).getImage()));
+            return photos;
 
         }
 
-        return null;
+        return Collections.emptyList();
 
     }
 }
