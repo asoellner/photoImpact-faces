@@ -8,16 +8,16 @@
       xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+
 </h:head>
 <h:body>
+
     <h:form>
         <p:menubar>
             <p:submenu label="#{sessionBean.user.login}">
                 <p:menuitem value="Logout" action="#{loginBean.logoutProject()}"/>
 
-                <p:menuitem value="Hotmail" url="
-http://www.hotmail.com
-"/>
+                <p:menuitem value="Photos" url="#"/>
                 <p:menuitem value="Yahoo Mail" url="
 http://mail.yahoo.com
 "/>
@@ -35,21 +35,36 @@ http://www.break.com
 
 
     <h:form id="productListForm" prependId="false">
+        <center>
+            <p:outputPanel id="gmap">
+
+                <p:gmap center="#{photoBean.getCenterOfAllPhotosMapModel()}" zoom="8" type="hybrid"
+                        style="width:800px;height:600px" model="#{photoBean.getAllPhotosMapModel()}"/>
+            </p:outputPanel>
+        </center>
+
+
+        <br/>
 
         <p:outputPanel id="testContainer">
 
             <p:dataTable id="photos" var="photo" value="#{photoBean.images}"
                          editable="false" widgetVar="documentTable">
 
-                <p:column headerText="Photo"  style="text-align: center">
+                <p:column headerText="Photo" style="text-align: center">
                     <p:graphicImage value="#{photoBean.photo}">
-                        <f:param name="pid" value="#{photo.id}"/>
+                        <f:param name="pid" value="#{photo.id}" cache="false"/>
                     </p:graphicImage>
 
                 </p:column>
 
                 <p:column headerText="Details" style="vertical-align: top">
-                    <p:gmap center="#{photo.gpsLongitude}, 2.122893" zoom="15" type="HYBRID" style="width:100%;height:400px" />
+
+                    Uploaded: <h:outputText value="#{photo.date}" title="Uploaded"/><br/>
+                    <p:gmap center="#{photo.gpsLatidude}, #{photo.gpsLongitude}" zoom="15" type="hybrid"
+                            style="width:600px;height:400px" model="#{photoBean.getCustomMapModel(photo.id)}"
+                            rendered="#{photo.gpsLatidude !=null}"/>
+
                 </p:column>
 
             </p:dataTable>
