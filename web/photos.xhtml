@@ -1,0 +1,49 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui">
+    <h:form id="productListForm" prependId="false">
+        <center>
+            <p:outputPanel id="gmap">
+
+                <p:gmap center="#{photoBean.getCenterOfAllPhotosMapModel()}" zoom="8" type="hybrid"
+                        style="width:800px;height:600px" model="#{photoBean.getAllPhotosMapModel()}"/>
+            </p:outputPanel>
+        </center>
+
+
+        <br/>
+
+        <p:outputPanel id="testContainer">
+
+            <p:dataTable id="photos" var="photo" value="#{photoBean.images}"
+                         editable="false" widgetVar="documentTable">
+
+                <p:column headerText="Photo" style="text-align: center">
+                    <p:graphicImage value="#{photoBean.photo}">
+                        <f:param name="pid" value="#{photo.id}" cache="false"/>
+                    </p:graphicImage>
+
+                </p:column>
+
+                <p:column headerText="Details" style="vertical-align: top">
+
+                    Uploaded: <h:outputText value="#{photo.date}" title="Uploaded"/><br/>
+                    <p:gmap center="#{photo.gpsLatidude}, #{photo.gpsLongitude}" zoom="15" type="hybrid"
+                            style="width:600px;height:400px" model="#{photoBean.getCustomMapModel(photo.id)}"
+                            rendered="#{photo.gpsLatidude !=null}"/>
+
+                </p:column>
+
+            </p:dataTable>
+        </p:outputPanel>
+
+    </h:form>
+
+</ui:composition>
+
+
+
+

@@ -1,0 +1,25 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui">
+    <h:form id="productListForm" prependId="false">
+        <center>
+            <p:outputPanel id="gmap">
+
+                <p:gmap center="#{photoBean.getCenterOfLocations()}" zoom="8" type="hybrid"
+                        style="width:800px;height:600px" model="#{photoBean.getAllLocationsMapModel()}"/>
+            </p:outputPanel>
+        </center>
+
+
+
+
+    </h:form>
+
+</ui:composition>
+
+
+
+
