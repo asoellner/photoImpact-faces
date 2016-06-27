@@ -1,5 +1,6 @@
 package com.soellner.photoImpact;
 
+import com.soellner.photoImpact.data.Location;
 import com.soellner.photoImpact.data.Photo;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -55,6 +56,37 @@ public class PhotoBean {
 
     }
 
+    public MapModel getAllLocationsMapModel() throws IOException, SQLException {
+
+
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("locationsMySQL");
+        EntityManager manager = factory.createEntityManager();
+        List<Location> locations = manager.createQuery("SELECT a FROM Location a WHERE a.userID=1 order by a.id DESC", Location.class).setMaxResults(10).getResultList();
+
+
+
+        MapModel model = new DefaultMapModel();
+
+        for (Location location : locations) {
+
+                Double latidue =location.getLatitude();
+                Double longitude = location.getLongitude();
+                model.addOverlay(new Marker(new LatLng(latidue, longitude), "M" + locations.indexOf(location)));
+
+
+
+
+        }
+
+
+        return model;
+        //return new DefaultStreamedContent(new ByteArrayInputStream(image));
+
+
+    }
+
+
+
     public String getCenterOfAllPhotosMapModel() throws IOException, SQLException {
 
 
@@ -70,6 +102,31 @@ public class PhotoBean {
                 center = latidue + "," + longitude;
                 return center;
             }
+
+
+        }
+
+
+        return "0,0";
+        //return new DefaultStreamedContent(new ByteArrayInputStream(image));
+
+
+    }
+
+    public String getCenterOfLocations() throws IOException, SQLException {
+
+
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("locationsMySQL");
+        EntityManager manager = factory.createEntityManager();
+        List<Location> locations = manager.createQuery("SELECT a FROM Location a WHERE a.userID=1 order by a.id DESC", Location.class).setMaxResults(10).getResultList();
+        String center = "";
+
+        for (Location location : locations) {
+
+            Double latidue = location.getLatitude();
+            Double longitude =location.getLongitude();
+            center = latidue + "," + longitude;
+            return center;
 
 
         }
