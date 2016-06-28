@@ -28,12 +28,12 @@ import java.util.List;
 @ManagedBean(name = "photoBean")
 @SessionScoped
 public class PhotoBean {
-
+    private static String PERSISTENCE_UNIT = "soellnerMySQL";
 
     public MapModel getAllPhotosMapModel() throws IOException, SQLException {
 
 
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("photosMySQL");
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
         EntityManager manager = factory.createEntityManager();
         List<Photo> photos = manager.createQuery("SELECT a FROM Photo a order by a.id DESC", Photo.class).getResultList();
         MapModel model = new DefaultMapModel();
@@ -59,7 +59,7 @@ public class PhotoBean {
     public MapModel getAllLocationsMapModel() throws IOException, SQLException {
 
 
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("locationsMySQL");
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
         EntityManager manager = factory.createEntityManager();
         List<Location> locations = manager.createQuery("SELECT a FROM Location a WHERE a.userID=1 order by a.id DESC", Location.class).setMaxResults(10).getResultList();
 
@@ -90,7 +90,7 @@ public class PhotoBean {
     public String getCenterOfAllPhotosMapModel() throws IOException, SQLException {
 
 
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("photosMySQL");
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
         EntityManager manager = factory.createEntityManager();
         List<Photo> photos = manager.createQuery("SELECT a FROM Photo a order by a.id DESC", Photo.class).getResultList();
         String center = "";
@@ -116,7 +116,7 @@ public class PhotoBean {
     public String getCenterOfLocations() throws IOException, SQLException {
 
 
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("locationsMySQL");
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
         EntityManager manager = factory.createEntityManager();
         List<Location> locations = manager.createQuery("SELECT a FROM Location a WHERE a.userID=1 order by a.id DESC", Location.class).setMaxResults(10).getResultList();
         String center = "";
@@ -149,7 +149,7 @@ public class PhotoBean {
 
             String id = context.getExternalContext().getRequestParameterMap().get("pid");
 
-            EntityManagerFactory factory = Persistence.createEntityManagerFactory("photosMySQL");
+            EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
             EntityManager manager = factory.createEntityManager();
             List<Photo> photos = manager.createQuery("SELECT a FROM Photo a where a.id=?1", Photo.class).setParameter(1, id).getResultList();
             if (!photos.isEmpty()) {
@@ -171,7 +171,7 @@ public class PhotoBean {
 
         //String id = context.getExternalContext().getRequestParameterMap().get("pid");
 
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("photosMySQL");
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
         EntityManager manager = factory.createEntityManager();
         List<Photo> photos = manager.createQuery("SELECT a FROM Photo a where a.id=?1", Photo.class).setParameter(1, id).getResultList();
         if (!photos.isEmpty()) {
@@ -194,7 +194,7 @@ public class PhotoBean {
     public List<Photo> getImages() throws IOException {
 
         // So, browser is requesting the image. Return a real StreamedContent with the image bytes.
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("photosMySQL");
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
         EntityManager manager = factory.createEntityManager();
         List<Photo> photos = manager.createQuery("SELECT a FROM Photo a order by a.id DESC", Photo.class).getResultList();
         if (!photos.isEmpty()) {

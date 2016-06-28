@@ -27,7 +27,7 @@ public class LoginBean implements Serializable {
     private static final long serialVersionUID = 1L;
     private String _uname;
     private String _password;
-
+    private static String PERSISTENCE_UNIT = "soellnerMySQL";
 
     public String getPassword() {
         return _password;
@@ -50,7 +50,7 @@ public class LoginBean implements Serializable {
         //validate user und pass
 
         if (!_uname.equals("") && !_password.equals("")) {
-            EntityManagerFactory factory = Persistence.createEntityManagerFactory("photosMySQL");
+            EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
             EntityManager manager = factory.createEntityManager();
             // int numberOfUsers = manager.createQuery("Select a From User a where a.login LIKE ?1", User.class).setParameter(1, "asoel").getResultList().size();
 

@@ -6,29 +6,16 @@
                         http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
 
 
-    <persistence-unit name="photosMySQL" transaction-type="RESOURCE_LOCAL">
-        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-        <class>com.soellner.photoImpact.data.Photo</class>
-        <class>com.soellner.photoImpact.data.User</class>
-        <properties>
-            <property name="eclipselink.jdbc.password" value="alex"/>
-            <property name="eclipselink.jdbc.user" value="alex"/>
-            <property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-            <property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/photos"/>
-            <!--property name="eclipselink.ddl-generation" value="drop-and-create-tables"/-->
-            <property name="eclipselink.logging.level" value="INFO"/>
-        </properties>
-    </persistence-unit>
-
-    <persistence-unit name="locationsMySQL" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="soellnerMySQL" transaction-type="RESOURCE_LOCAL">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <class>com.soellner.photoImpact.data.Location</class>
         <class>com.soellner.photoImpact.data.User</class>
+        <class>com.soellner.photoImpact.data.Photo</class>
         <properties>
             <property name="eclipselink.jdbc.password" value="alex"/>
             <property name="eclipselink.jdbc.user" value="alex"/>
             <property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-            <property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/locations"/>
+            <property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/soellner"/>
             <!--property name="eclipselink.ddl-generation" value="drop-and-create-tables"/-->
             <property name="eclipselink.logging.level" value="INFO"/>
         </properties>

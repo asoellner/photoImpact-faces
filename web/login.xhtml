@@ -8,42 +8,60 @@
       xmlns:p="http://primefaces.org/ui">
 <h:head>
 
-    <title>login</title>
+    <title>Soellner Web Login</title>
 </h:head>
 <h:body>
+
     <h:form id="loginForm">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" class="outer_table">
+            <tr>
+                <td>
+                    <table width="500" height="500" cellpadding="0" cellspacing="0" border="0" align="center">
+                        <tr>
+                            <td align="center">
 
 
-        <p:growl id="msg" showDetail="true" life="3000" />
-        <p:panel header="Login" style="width: 360px;">
+                                <p:growl id="msg" showDetail="true" life="3000"/>
+                                <p:panel header="Login" style="width: 360px;">
 
-            <h:panelGrid id="loginPanel" columns="2">
+                                    <h:panelGrid id="loginPanel" columns="2">
 
-                <h:outputText value="Username" />
+                                        <h:outputText value="Username"/>
 
-                <p:inputText id="username" value="#{loginBean.uname}" ></p:inputText>
+                                        <p:inputText id="username" value="#{loginBean.uname}"></p:inputText>
 
-                <p:spacer></p:spacer>
+                                        <p:spacer></p:spacer>
 
-                <p:message for="username" ></p:message>
+                                        <p:message for="username"></p:message>
 
-                <h:outputText value="Password" />
+                                        <h:outputText value="Password"/>
 
-                <p:password id="password" value="#{loginBean.password}"  feedback="false"></p:password>
+                                        <p:password id="password" value="#{loginBean.password}"
+                                                    feedback="false"></p:password>
 
-                <p:spacer></p:spacer>
+                                        <p:spacer></p:spacer>
 
-                <p:message for="password"></p:message>
+                                        <p:message for="password"></p:message>
 
-                <p:spacer></p:spacer>
+                                        <p:spacer></p:spacer>
 
-                <p:commandButton action="#{loginBean.loginProject()}" value="Login" update="loginForm" ajax="true"></p:commandButton>
+                                        <p:commandButton action="#{loginBean.loginProject()}" value="Login"
+                                                         update="loginForm"
+                                                         ajax="true"></p:commandButton>
 
-            </h:panelGrid>
+                                    </h:panelGrid>
 
-        </p:panel>
+                                </p:panel>
+
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
 
     </h:form>
+
 
 </h:body>
 
