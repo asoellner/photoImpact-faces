@@ -46,6 +46,17 @@ public class MenuView {
 
         firstSubmenu.addElement(gpsItem);
 
+
+
+        DefaultMenuItem userItem = new DefaultMenuItem("User Management");
+        userItem.setIcon("ui-icon-person");
+        userItem.setAjax(true);
+        userItem.setCommand("#{pages.changePage}");
+        userItem.setUpdate("outputPanel");
+        userItem.setParam("id", 3);
+
+        firstSubmenu.addElement(userItem);
+
         DefaultMenuItem logoutItem = new DefaultMenuItem("Logout");
         logoutItem.setIcon("ui-icon-power");
         //logoutItem.setAjax(true);

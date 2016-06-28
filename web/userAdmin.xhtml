@@ -1,0 +1,83 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui">
+    <h:form id="userListForm">
+
+
+        <div style="text-align: center;">
+            <h2>User Administration</h2>
+            <br/>
+            <br/>
+
+            <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+            <p:dataTable var="car" value="#{userManagerView.users}">
+                <p:column headerText="Id">
+                    <h:outputText value="#{car.id}"/>
+                </p:column>
+
+                <p:column headerText="Login">
+                    <h:outputText value="#{car.login}"/>
+                </p:column>
+
+                <p:column headerText="Created">
+                    <h:outputText value="#{car.creationDate}"/>
+                </p:column>
+
+            </p:dataTable>
+        </div>
+
+
+        <table>
+            <tr>
+                <td align="right">
+
+                    <p:commandButton type="button" icon="ui-icon-star" value="Add User" onclick="PF('dlg').show();"/>
+                </td>
+            </tr>
+        </table>
+
+    </h:form>
+
+
+    <p:dialog header="Add User" widgetVar="dlg" resizable="false"  appendTo="@(body)">
+
+        <h:form id="formularioAlterar">
+        <h:panelGrid columns="2" cellpadding="5">
+
+
+                <h:outputLabel for="username" value="Username:"/>
+                <p:inputText id="username" value="#{userManagerView.username}" required="true" label="username"/>
+
+                <h:outputLabel for="password" value="Password:"/>
+                <p:password id="password" value="#{userManagerView.password}" required="true" label="password"/>
+
+
+
+
+            <p:commandButton ajax="false" value="Salvar" action="#{userManagerView.createUser}"
+                             styleClass="botoes" update=":userListForm:dialog" />
+        </h:panelGrid>
+        </h:form>
+    </p:dialog>
+
+    <script type="text/javascript">
+        function handleLoginRequest(xhr, status, args) {
+            if(args.validationFailed || !args.loggedIn) {
+                PF('dlg').jq.effect("shake", {times:5}, 100);
+            }
+            else {
+                PF('dlg').hide();
+                $('#loginLink').fadeOut();
+            }
+        }
+    </script>
+        <h:messages />
+
+</ui:composition>
+
+
+
+

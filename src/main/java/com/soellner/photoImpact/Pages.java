@@ -12,35 +12,28 @@ import javax.faces.event.ActionEvent;
 @ManagedBean
 public class Pages {
 
-    private String dynamicaPagesInclude = "welcome.xhtml";
+    private String _dynamicaPagesInclude = "welcome.xhtml";
 
     public String getDynamicaPagesInclude() {
-        return dynamicaPagesInclude;
+        return _dynamicaPagesInclude;
     }
 
     public void setDynamicaPagesInclude(String dynamicaPagesInclude) {
-        this.dynamicaPagesInclude = dynamicaPagesInclude;
+        this._dynamicaPagesInclude = dynamicaPagesInclude;
     }
 
-    /*public void changePage(int itemSelected) {
-        if (itemSelected == 1) {
-            dynamicaPagesInclude = "photos.xhtml";
-        } else if (itemSelected == 2) {
-            dynamicaPagesInclude = "gps.xhtml";
-        } else {
-            dynamicaPagesInclude = "welcome.xhtml";
-        }
-    }
-*/
+
     public void changePage(ActionEvent event) {
         MenuItem menuItem = ((MenuActionEvent) event).getMenuItem();
         int itemSelected = Integer.valueOf(menuItem.getParams().get("id").get(0));
-       if (itemSelected == 1) {
-            dynamicaPagesInclude = "photos.xhtml";
+        if (itemSelected == 1) {
+            _dynamicaPagesInclude = "photos.xhtml";
         } else if (itemSelected == 2) {
-            dynamicaPagesInclude = "gps.xhtml";
+            _dynamicaPagesInclude = "gps.xhtml";
+        } else if (itemSelected == 3) {
+            _dynamicaPagesInclude = "userAdmin.xhtml";
         } else {
-            dynamicaPagesInclude = "welcome.xhtml";
+            _dynamicaPagesInclude = "welcome.xhtml";
         }
     }
 }
