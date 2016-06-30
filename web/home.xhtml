@@ -1,4 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
@@ -12,14 +13,54 @@
 </h:head>
 
 <h:body>
-    <h:form>
+    <h:form id="mainForm">
         <p:growl id="messages" showDetail="false"/>
 
-            <p:menubar model="#{menuView.model}" />
+        <p:menubar model="#{menuView.model}"/>
+
+
+    <h:panelGroup id="mainPanel">
 
         <p:outputPanel id="outputPanel">
-            <ui:include src="#{pages.dynamicaPagesInclude}" />
+
+            <ui:include src="#{pages.dynamicaPagesInclude}"/>
+
         </p:outputPanel>
+
+    </h:panelGroup>
+
+
+    <p:dialog header="Create User" widgetVar="dlg" resizable="false">
+        <h:form id="dialog" appendToBody="true" >
+
+            <h:panelGrid columns="2" cellpadding="5">
+                <p:growl id="growl" showDetail="true"/>
+                <h:outputLabel for="username" value="Username:"/>
+                <p:inputText id="username" value="#{userManagerView.username}" required="true" label="username"/>
+
+                <h:outputLabel for="password" value="Password:"/>
+                <p:password id="password" value="#{userManagerView.password}" required="true" label="password"/>
+
+                <f:facet name="footer">
+                    <p:commandButton value="Login" update="growl" actionListener="#{userManagerView.createUser}"
+                                     oncomplete="handleLoginRequest(xhr, status, args)" ajax="true"/>
+                </f:facet>
+
+            </h:panelGrid>
+        </h:form>
+    </p:dialog>
+
     </h:form>
+    <script type="text/javascript">
+        function handleLoginRequest(xhr, status, args) {
+            if (args.validationFailed || !args.loggedIn) {
+                PF('dlg').jq.effect("shake", {times: 5}, 100);
+            }
+            else {
+                PF('dlg').hide();
+                $('#loginLink').fadeOut();
+            }
+        }
+    </script>
 </h:body>
 </html>

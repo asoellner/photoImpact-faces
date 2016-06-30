@@ -3,6 +3,7 @@ package com.soellner.photoImpact;
 import com.soellner.photoImpact.data.User;
 import com.soellner.photoImpact.service.UserService;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.RowEditEvent;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -38,7 +39,7 @@ public class UserManagerView implements Serializable {
         return _users;
     }
 
-    public void createUser() {
+    public void createUser(ActionEvent event) {
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage message = null;
         boolean created = false;
@@ -57,6 +58,15 @@ public class UserManagerView implements Serializable {
         context.addCallbackParam("created", created);
     }
 
+    public void onRowEdit(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Car Edited", ((User) event.getObject()).getId());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onRowCancel(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Edit Cancelled", ((User) event.getObject()).getId());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
 
     public String getUsername() {
         return _username;
