@@ -42,7 +42,7 @@
                 <p:password id="password" value="#{userManagerView.password}" required="true" label="password"/>
 
                 <f:facet name="footer">
-                    <p:commandButton value="Login" update="growl" actionListener="#{userManagerView.createUser}"
+                    <p:commandButton value="Save" update="growl" actionListener="#{userManagerView.createUser}"
                                      oncomplete="handleLoginRequest(xhr, status, args)" ajax="true"/>
                 </f:facet>
 
@@ -53,7 +53,7 @@
     </h:form>
     <script type="text/javascript">
         function handleLoginRequest(xhr, status, args) {
-            if (args.validationFailed || !args.loggedIn) {
+            if (args.validationFailed || !args.created) {
                 PF('dlg').jq.effect("shake", {times: 5}, 100);
             }
             else {

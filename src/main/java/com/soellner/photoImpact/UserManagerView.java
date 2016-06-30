@@ -43,12 +43,12 @@ public class UserManagerView implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage message = null;
         boolean created = false;
-        if (_username != null && _username.equals("") && _password != null && _password.equals("")) {
+        if (_username != null && !_username.equals("") && _password != null && !_password.equals("")) {
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "User added", _username);
             String returnMessage = service.createUser(_username, _password);
             created = true;
             if (!returnMessage.equals("")) {
-                message = new FacesMessage(FacesMessage.SEVERITY_INFO, returnMessage, _username);
+                message = new FacesMessage(FacesMessage.SEVERITY_INFO, "ERROR", returnMessage);
                 created = false;
             }
         } else {
