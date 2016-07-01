@@ -13,16 +13,16 @@
 </h:head>
 
 <h:body>
-    <h:form id="mainForm">
+    <h:form id="mainForm" prependId="false">
         <p:growl id="messages" showDetail="false"/>
 
         <p:menubar model="#{menuView.model}"/>
 
 
-    <h:panelGroup id="mainPanel">
-
+    <h:panelGroup id="mainPanel" rendered="true" >
+        <h:outputLabel  value="#{pages.dynamicaPagesInclude}" /><br/>
         <p:outputPanel id="outputPanel">
-
+            <h:outputLabel  value="#{pages.dynamicaPagesInclude}" /><br/>
             <ui:include src="#{pages.dynamicaPagesInclude}"/>
 
         </p:outputPanel>
@@ -30,11 +30,10 @@
     </h:panelGroup>
 
 
-    <p:dialog header="Create User" widgetVar="dlg" resizable="false">
-        <h:form id="dialog" appendToBody="true" >
+        <p:dialog header="Create User" widgetVar="dlg" resizable="false">
 
             <h:panelGrid columns="2" cellpadding="5">
-                <p:growl id="growl" showDetail="true"/>
+
                 <h:outputLabel for="username" value="Username:"/>
                 <p:inputText id="username" value="#{userManagerView.username}" required="true" label="username"/>
 
@@ -42,15 +41,15 @@
                 <p:password id="password" value="#{userManagerView.password}" required="true" label="password"/>
 
                 <f:facet name="footer">
-                    <p:commandButton value="Save" update="growl" actionListener="#{userManagerView.createUser}"
+                    <p:commandButton value="Save"  update=":mainPanel" actionListener="#{userManagerView.createUser}"
                                      oncomplete="handleLoginRequest(xhr, status, args)" ajax="true"/>
                 </f:facet>
 
             </h:panelGrid>
-        </h:form>
-    </p:dialog>
 
-    </h:form>
+        </p:dialog>
+
+
     <script type="text/javascript">
         function handleLoginRequest(xhr, status, args) {
             if (args.validationFailed || !args.created) {
@@ -58,9 +57,12 @@
             }
             else {
                 PF('dlg').hide();
-                $('#loginLink').fadeOut();
+                dataTableWidgetVar.clearFilters();
+                //$('welcome.xhtml').fadeOut();
             }
         }
     </script>
+
+    </h:form>
 </h:body>
 </html>
