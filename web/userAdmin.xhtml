@@ -5,42 +5,41 @@
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:p="http://primefaces.org/ui">
 
-    <h:form id="userListForm">
 
-        <div style="text-align: center;">
-            <h2>User Administration</h2>
-            <br/>
-            <br/>
+    <div style="text-align: center;">
+        <h2>User Administration</h2>
+        <br/>
+        <br/>
 
-
-            <p:dataTable var="car" value="#{userManagerView.users}">
+        <p:outputPanel id="userList">
+            <p:dataTable var="user" value="#{userManagerView.users}" id="userTable" widgetVar="dataTableWidgetVar">
                 <p:column headerText="Id">
-                    <h:outputText value="#{car.id}"/>
+                    <h:outputText value="#{user.id}"/>
                 </p:column>
 
                 <p:column headerText="Login">
-                    <h:outputText value="#{car.login}"/>
+                    <h:outputText value="#{user.login}"/>
                 </p:column>
 
                 <p:column headerText="Created">
-                    <h:outputText value="#{car.creationDate}"/>
+                    <h:outputText value="#{user.creationDate}"/>
                 </p:column>
 
             </p:dataTable>
-        </div>
+        </p:outputPanel>
+    </div>
 
 
-        <table>
-            <tr>
-                <td align="right">
+    <table>
+        <tr>
+            <td align="right">
 
-                    <p:commandButton type="button" icon="ui-icon-star" value="Add User" onclick="PF('dlg').show();"/>
-                </td>
-            </tr>
-        </table>
+                <p:commandButton type="button" icon="ui-icon-star" value="Add User" onclick="PF('dlg').show();"/>
+            </td>
+        </tr>
+    </table>
 
 
-    </h:form>
 
 
 </ui:composition>
