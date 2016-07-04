@@ -11,6 +11,7 @@ import org.primefaces.model.map.Marker;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import javax.persistence.EntityManager;
@@ -26,7 +27,7 @@ import java.util.List;
  * Created by asoel on 16.06.2016.
  */
 @ManagedBean(name = "photoBean")
-@SessionScoped
+@ViewScoped
 public class PhotoBean {
     private static String PERSISTENCE_UNIT = "soellnerMySQL";
 

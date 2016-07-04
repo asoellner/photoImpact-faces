@@ -5,6 +5,7 @@ import com.soellner.photoImpact.data.User;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
@@ -20,7 +21,7 @@ import java.util.Map;
  * Created by Alex on 11.06.2016.
  */
 @ManagedBean(name = "loginBean")
-@SessionScoped
+@ViewScoped
 
 public class LoginBean implements Serializable {
 

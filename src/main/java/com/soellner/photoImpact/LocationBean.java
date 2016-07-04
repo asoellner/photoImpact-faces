@@ -10,6 +10,7 @@ import org.primefaces.model.map.Marker;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -23,7 +24,7 @@ import java.util.List;
  * Created by asoel on 16.06.2016.
  */
 @ManagedBean(name = "locationBean")
-@SessionScoped
+@ViewScoped
 public class LocationBean {
     private static String PERSISTENCE_UNIT = "soellnerMySQL";
 
@@ -43,14 +44,20 @@ public class LocationBean {
 
         MapModel model = new DefaultMapModel();
 
+        boolean lastKownPostion = true;
         for (Location location : locations) {
 
             Double latidue = location.getLatitude();
             Double longitude = location.getLongitude();
             Date date = new Date(Long.valueOf(location.getDateTime()));
             SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+            Marker marker = new Marker(new LatLng(latidue, longitude), dateformat.format(date));
+            if (lastKownPostion) {
+                marker.setIcon("http://www.google.com/mapfiles/markerC.png");
+                lastKownPostion = false;
+            }
 
-            model.addOverlay(new Marker(new LatLng(latidue, longitude), dateformat.format(date)));
+            model.addOverlay(marker);
 
 
         }

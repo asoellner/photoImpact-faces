@@ -8,13 +8,14 @@ import org.primefaces.model.menu.MenuItem;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
 /**
  * Created by Alex on 27.06.2016.
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class Pages {
 
     private String _dynamicaPagesInclude = "welcome.xhtml";
