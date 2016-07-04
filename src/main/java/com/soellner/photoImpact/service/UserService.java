@@ -60,7 +60,7 @@ public class UserService {
         EntityManager manager = factory.createEntityManager();
         // int numberOfUsers = manager.createQuery("Select a From User a where a.login LIKE ?1", User.class).setParameter(1, "asoel").getResultList().size();
 
-        List<User> users = manager.createQuery("Select a From User a where a.id=?1", User.class).setParameter(1, userID+"").getResultList();
+        List<User> users = manager.createQuery("Select a From User a where a.id=?1", User.class).setParameter(1, userID).getResultList();
         if (!users.isEmpty()) {
             return users.get(0);
         }

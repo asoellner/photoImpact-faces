@@ -58,15 +58,7 @@ public class UserManagerView implements Serializable {
         context.addCallbackParam("created", created);
     }
 
-    public void onRowEdit(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Car Edited", ((User) event.getObject()).getId());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
 
-    public void onRowCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Edit Cancelled", ((User) event.getObject()).getId());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
 
     public String getUsername() {
         return _username;

@@ -9,7 +9,7 @@ import javax.persistence.Id;
  */
 @Entity
 public class Location {
-    private String _id;
+    private int _id;
     private int _userID;
     private double _latitude;
     private double _longitude;
@@ -22,11 +22,11 @@ public class Location {
 
     @Id
     @GeneratedValue
-    public String getId() {
+    public int getId() {
         return _id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         _id = id;
     }
 
