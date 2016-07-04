@@ -38,7 +38,7 @@ public class LocationBean {
 
         EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
         EntityManager manager = factory.createEntityManager();
-        List<Location> locations = manager.createQuery("SELECT a FROM Location a WHERE a.userID=" + currentGpsUser.getId() + " order by a.id ASC", Location.class).setMaxResults(10).getResultList();
+        List<Location> locations = manager.createQuery("SELECT a FROM Location a WHERE a.userID=" + currentGpsUser.getId() + " order by a.id DESC", Location.class).setMaxResults(10).getResultList();
 
 
         MapModel model = new DefaultMapModel();
@@ -69,7 +69,7 @@ public class LocationBean {
 
         EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
         EntityManager manager = factory.createEntityManager();
-        List<Location> locations = manager.createQuery("SELECT a FROM Location a WHERE a.userID=" + currentGpsUser.getId() + " order by a.id ASC", Location.class).setMaxResults(1).getResultList();
+        List<Location> locations = manager.createQuery("SELECT a FROM Location a WHERE a.userID=" + currentGpsUser.getId() + " order by a.id DESC", Location.class).setMaxResults(1).getResultList();
         String center = "";
 
         if (!locations.isEmpty()) {
@@ -86,7 +86,7 @@ public class LocationBean {
 
         EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
         EntityManager manager = factory.createEntityManager();
-        List<Location> locations = manager.createQuery("SELECT a FROM Location a WHERE a.userID=" + currentGpsUser.getId() + " order by a.id ASC", Location.class).setMaxResults(10).getResultList();
+        List<Location> locations = manager.createQuery("SELECT a FROM Location a WHERE a.userID=" + currentGpsUser.getId() + " order by a.id DESC", Location.class).setMaxResults(10).getResultList();
         String center = "";
 
         for (Location location : locations) {
