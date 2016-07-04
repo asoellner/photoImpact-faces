@@ -4,19 +4,21 @@
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:p="http://primefaces.org/ui">
-    <h:form id="productListForm" prependId="false">
-        <div style="text-align: center;">
+
+       <center>
+            <h2>GPS - <h:outputLabel  value="#{pages.gpsUser.login}" /></h2>
+           Last Track<h:outputLabel  value="#{locationBean.lastTrack}" />
             <p:outputPanel id="gmap">
 
-                <p:gmap center="#{photoBean.getCenterOfLocations()}" zoom="8" type="hybrid"
-                        style="width:800px;height:600px" model="#{photoBean.getAllLocationsMapModel()}"/>
+                <p:gmap center="#{locationBean.getCenterOfLocations()}" zoom="11" type="hybrid"
+                        style="width:800px;height:600px" model="#{locationBean.getAllLocationsMapModel()}"/>
             </p:outputPanel>
-        </div>
+
+       </center>
 
 
 
 
-    </h:form>
 
 </ui:composition>
 

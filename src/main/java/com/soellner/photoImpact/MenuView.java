@@ -7,15 +7,23 @@ package com.soellner.photoImpact;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
+import com.soellner.photoImpact.data.User;
+import com.soellner.photoImpact.service.UserService;
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.MenuModel;
 
+import java.util.List;
+
 @ManagedBean
 public class MenuView {
+
+    @ManagedProperty("#{userService}")
+    private UserService service;
 
     private MenuModel model;
 
@@ -37,17 +45,22 @@ public class MenuView {
 
         firstSubmenu.addElement(photoItem);
 
-        DefaultMenuItem gpsItem = new DefaultMenuItem("Gps");
-        gpsItem.setIcon("ui-icon-signal-diag");
-        gpsItem.setAjax(true);
-        gpsItem.setCommand("#{pages.changePage}");
-        gpsItem.setUpdate("outputPanel");
-        gpsItem.setParam("id", 2);
 
-        firstSubmenu.addElement(gpsItem);
+        List<User> users = service.getUsers();
+        for (User user : users) {
+            DefaultMenuItem gpsItem = new DefaultMenuItem("GPS - " + user.getLogin());
+            gpsItem.setIcon("ui-icon-signal-diag");
+            gpsItem.setAjax(true);
+            gpsItem.setCommand("#{pages.changePage}");
+            gpsItem.setUpdate("outputPanel");
+            gpsItem.setParam("id", 2);
+            gpsItem.setParam("userID", user.getId());
 
+            firstSubmenu.addElement(gpsItem);
 
+        }
 
+/*
         DefaultMenuItem userItem = new DefaultMenuItem("User Management");
         userItem.setIcon("ui-icon-person");
         userItem.setAjax(true);
@@ -55,39 +68,20 @@ public class MenuView {
         userItem.setUpdate("outputPanel");
         userItem.setParam("id", 3);
 
-        firstSubmenu.addElement(userItem);
+        firstSubmenu.addElement(userItem);*/
 
         DefaultMenuItem logoutItem = new DefaultMenuItem("Logout");
         logoutItem.setIcon("ui-icon-power");
         //logoutItem.setAjax(true);
-        logoutItem.setUrl("login.xhtml");
+        //logoutItem.setUrl("login.xhtml");
+        logoutItem.setCommand("#{loginBean.logoutProject}");
         //gpsItem.setParam("id", 3);
 
         firstSubmenu.addElement(logoutItem);
 
         model.addElement(firstSubmenu);
 
-        /*//Second submenu
-        DefaultSubMenu secondSubmenu = new DefaultSubMenu("Dynamic Actions");
 
-        item = new DefaultMenuItem("Save");
-        item.setIcon("ui-icon-disk");
-        item.setCommand("#{menuView.save}");
-        item.setUpdate("messages");
-        secondSubmenu.addElement(item);
-
-        item = new DefaultMenuItem("Delete");
-        item.setIcon("ui-icon-close");
-        item.setCommand("#{menuView.delete}");
-        item.setAjax(false);
-        secondSubmenu.addElement(item);
-
-        item = new DefaultMenuItem("Redirect");
-        item.setIcon("ui-icon-search");
-        item.setCommand("#{menuView.redirect}");
-        secondSubmenu.addElement(item);
-
-        model.addElement(secondSubmenu);*/
     }
 
     public MenuModel getModel() {
@@ -110,4 +104,13 @@ public class MenuView {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
+
+    public void setService(UserService service) {
+        this.service = service;
+    }
+
+    public UserService getService() {
+        return service;
+    }
+
 }
