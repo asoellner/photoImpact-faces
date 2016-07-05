@@ -77,7 +77,6 @@ public class LocationBean {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
         EntityManager manager = factory.createEntityManager();
         List<Location> locations = manager.createQuery("SELECT a FROM Location a WHERE a.userID=" + currentGpsUser.getId() + " order by a.id DESC", Location.class).setMaxResults(1).getResultList();
-        String center = "";
 
         if (!locations.isEmpty()) {
             Date date = new Date(Long.valueOf(locations.get(0).getDateTime()));
@@ -93,13 +92,13 @@ public class LocationBean {
 
         EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
         EntityManager manager = factory.createEntityManager();
-        List<Location> locations = manager.createQuery("SELECT a FROM Location a WHERE a.userID=" + currentGpsUser.getId() + " order by a.id DESC", Location.class).setMaxResults(10).getResultList();
+        List<Location> locations = manager.createQuery("SELECT a FROM Location a WHERE a.userID=" + currentGpsUser.getId() + " order by a.id DESC", Location.class).setMaxResults(1).getResultList();
         String center = "";
 
-        for (Location location : locations) {
+        if (!locations.isEmpty()) {
 
-            Double latidue = location.getLatitude();
-            Double longitude = location.getLongitude();
+            Double latidue = locations.get(0).getLatitude();
+            Double longitude = locations.get(0).getLongitude();
             center = latidue + "," + longitude;
             return center;
 
